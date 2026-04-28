@@ -175,9 +175,9 @@ body{
 .sb-bar-m{display:flex;justify-content:space-between;margin-top:5px;font-size:11px;color:var(--ink3)}
 
 /* MAIN */
-.main{flex:1;overflow-y:auto;padding:40px 52px 60px;background:transparent}
+.main{flex:1;overflow-y:auto;padding:40px 52px 60px;background:transparent;display:flex;flex-direction:column;}
 .screen{display:none}
-.screen.on{display:block;animation:fup .24s ease}
+.screen.on{display:block;animation:fup .24s ease;}
 @keyframes fup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
 /* TYPOGRAPHY */
@@ -544,14 +544,18 @@ body{
 
 /* HERO WELCOME */
 .hero-screen{
-  position:fixed;
-  top:52px;left:0;right:0;bottom:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   text-align:center;
   padding:40px 48px 60px;
-  background:var(--bg);
-  z-index:10;
-  overflow-y:auto;
+  min-height:calc(100vh - 52px);
+  width:100%;
+  box-sizing:border-box;
+}
+.hero-screen.on{
+  display:flex !important;
 }
 @media(max-width:768px){
   .hero-screen{padding:32px 20px 80px;}
