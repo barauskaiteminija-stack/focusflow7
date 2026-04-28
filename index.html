@@ -490,7 +490,7 @@ body{
 .toast.ok{background:var(--gr-bg);border-color:var(--gr-bd);color:var(--gr)}
 
 /* MODAL */
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
 .modal-ov.open{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--b2);border-radius:var(--rxl);width:100%;max-width:540px;max-height:90vh;overflow-y:auto;box-shadow:var(--sh);animation:fup .22s ease}
 .modal-hd{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--b1)}
@@ -1111,14 +1111,19 @@ function genTasks(goal,desc,total){
 
 /* ═══ MODAL ═══ */
 function openModal(){
-  $('mGoal').value='';$('mDesc').value='';$('mDays').value='';
-  $('mDate').valueAsDate=TODAY;
-  mSelDays=null;mSelCol=0;
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
-  document.querySelectorAll('.c-opt').forEach(c=>c.classList.remove('on'));
-  document.querySelector('.c-opt[data-ci="0"]').classList.add('on');
-  $('modalOv').classList.add('open');
-  setTimeout(()=>$('mGoal').focus(),80);
+  try{
+    const mGoal=$('mGoal');if(mGoal)mGoal.value='';
+    const mDesc=$('mDesc');if(mDesc)mDesc.value='';
+    const mDays=$('mDays');if(mDays)mDays.value='';
+    const mDate=$('mDate');if(mDate)mDate.valueAsDate=TODAY;
+    mSelDays=null;mSelCol=0;
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));
+    document.querySelectorAll('.c-opt').forEach(c=>c.classList.remove('on'));
+    const firstOpt=document.querySelector('.c-opt[data-ci="0"]');
+    if(firstOpt)firstOpt.classList.add('on');
+    $('modalOv').classList.add('open');
+    setTimeout(()=>{const g=$('mGoal');if(g)g.focus();},80);
+  }catch(e){console.error('openModal error:',e);}
 }
 function closeModal(){$('modalOv').classList.remove('open');}
 $('modalOv').addEventListener('click',e=>{if(e.target===$('modalOv'))closeModal();});
