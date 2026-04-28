@@ -548,9 +548,17 @@ body{
   min-height:calc(100vh - 52px);
   text-align:center;
   padding:40px 24px 60px;
-  /* Break out of .main's padding */
+  /* Shift right to compensate for 236px sidebar so it looks centered on full screen */
   margin:-36px -48px -60px;
   width:calc(100% + 96px);
+  position:relative;
+}
+/* On desktop push content left by half the sidebar width to true-center it */
+@media(min-width:769px){
+  .hero-screen{
+    margin-left:calc(-48px - 118px);
+    width:calc(100% + 96px + 236px);
+  }
 }
 @media(max-width:768px){
   .hero-screen{margin:-16px -14px -80px;width:calc(100% + 28px);}
