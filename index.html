@@ -42,8 +42,8 @@
 .c4{--pac:#3B82F6;--pac-bg:rgba(59,130,246,.10);--pac-bd:rgba(59,130,246,.25)}
 .c5{--pac:#8B5CF6;--pac-bg:rgba(139,92,246,.10);--pac-bd:rgba(139,92,246,.25)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;height:100%;-webkit-font-smoothing:antialiased}
-body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;display:flex;flex-direction:column;overflow:hidden}
+html{font-size:16px;min-height:100%;scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--f);background:var(--bg);color:var(--ink);min-height:100%;display:flex;flex-direction:column;overflow-x:hidden;overflow-y:auto}
 
 /* TOPBAR */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:52px;border-bottom:1px solid var(--b1);background:var(--bg2);flex-shrink:0;z-index:50;position:relative}
@@ -65,10 +65,10 @@ body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;disp
 [data-theme="light"] .plan-badge.serious{color:var(--ac)}
 
 /* SHELL */
-.shell{display:flex;flex:1;overflow:hidden;height:calc(100vh - 52px)}
+.shell{display:flex;flex:1;min-height:calc(100dvh - 52px)}
 
 /* SIDEBAR */
-.sidebar{width:236px;flex-shrink:0;border-right:1px solid var(--b1);background:var(--bg1);display:flex;flex-direction:column;padding:14px 10px;overflow-y:auto}
+.sidebar{width:236px;flex-shrink:0;border-right:1px solid var(--b1);background:var(--bg1);display:flex;flex-direction:column;padding:14px 10px;overflow-y:auto;position:sticky;top:52px;align-self:flex-start;height:calc(100dvh - 52px)}
 .sb-lbl{font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--ink3);padding:0 8px;margin-bottom:3px;margin-top:14px}
 .sb-lbl:first-child{margin-top:0}
 .sb-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;font-size:13px;font-weight:500;color:var(--ink2);cursor:pointer;border:1px solid transparent;background:none;font-family:var(--f);transition:all var(--tx);width:100%;text-align:left}
@@ -97,14 +97,15 @@ body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;disp
 .sb-bar-m{display:flex;justify-content:space-between;margin-top:5px;font-size:11px;color:var(--ink3)}
 
 /* MAIN */
-.main{flex:1;overflow-y:auto;padding:36px 48px 60px;background:var(--bg)}
+.main{flex:1;min-width:0;padding:36px 48px 72px;background:var(--bg);overflow:visible}
 .screen{display:none}
 .screen.on{display:block;animation:fup .22s ease}
+.main>.screen:not(.hero-screen){max-width:1180px;margin:0 auto;width:100%}
 @keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* HERO */
-.screen.on.hero-screen{position:fixed;top:52px;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 48px 60px;background:var(--bg);z-index:5;overflow-y:auto;}
-@media(max-width:768px){.screen.on.hero-screen{padding:32px 20px 80px;}}
+.screen.on.hero-screen{min-height:calc(100dvh - 124px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 20px 48px;background:var(--bg);}
+@media(max-width:768px){.screen.on.hero-screen{min-height:calc(100dvh - 148px);padding:24px 6px 48px;}}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--acl);margin-bottom:20px}
 [data-theme="light"] .hero-eyebrow{color:var(--ac)}
 .hero-eyebrow-d{width:6px;height:6px;border-radius:50%;background:var(--ac);box-shadow:0 0 8px var(--acg)}
@@ -166,6 +167,20 @@ body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;disp
 .btn-p svg{width:15px;height:15px}
 .btn-ghost{display:inline-flex;align-items:center;gap:6px;background:none;color:var(--ink2);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--f);font-size:14px;font-weight:500;padding:11px 22px;cursor:pointer;transition:all var(--tx)}
 .btn-ghost:hover{border-color:var(--b3);color:var(--ink)}
+
+/* SETUP */
+.setup-wrap{max-width:920px;margin:0 auto}
+.setup-panel{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:18px;align-items:start}
+.setup-card{background:var(--sur);border:1.5px solid var(--b2);border-radius:var(--rxl);box-shadow:var(--sh2);overflow:hidden}
+.setup-card-h{padding:18px 22px;border-bottom:1px solid var(--b1);background:var(--sur2)}
+.setup-card-t{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:-.4px}
+.setup-card-s{font-size:13px;color:var(--ink3);margin-top:4px;line-height:1.5}
+.setup-card-b{padding:22px}
+.setup-side{background:var(--sur);border:1px solid var(--b2);border-radius:var(--rxl);padding:20px;position:sticky;top:76px}
+.setup-steps{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.setup-step{display:flex;gap:10px;font-size:13px;color:var(--ink2);line-height:1.45}
+.setup-num{width:22px;height:22px;border-radius:50%;background:var(--ac-bg);color:var(--acl);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+[data-theme="light"] .setup-num{color:var(--ac)}
 
 /* PROJECT SWITCHER */
 .proj-switcher{display:flex;align-items:center;gap:8px;margin-bottom:24px;flex-wrap:wrap}
@@ -401,6 +416,7 @@ body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;disp
 .toast.show{transform:translateX(-50%) translateY(0)}
 .toast.warn{background:var(--rd-bg);border-color:var(--rd-bd);color:var(--rd)}
 .toast.ok{background:var(--gr-bg);border-color:var(--gr-bd);color:var(--gr)}
+.toast.banner-upgrade{pointer-events:auto;border-radius:12px;white-space:normal;line-height:1.45}
 
 /* MOBILE */
 .mob-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--bg2);border-top:1px solid var(--b2);padding:6px 0 max(6px,env(safe-area-inset-bottom))}
@@ -415,12 +431,13 @@ body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;disp
 @media(max-width:768px){
   .mob-nav{display:block}.sidebar{display:none}.topbar-c{display:none!important}
   .topbar{padding:0 14px}.main{padding:16px 14px 80px}
-  .two-col{grid-template-columns:1fr}.dash-2{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}.setup-panel{grid-template-columns:1fr}.setup-side{position:static}.dash-2{grid-template-columns:1fr}
   .lists-2{grid-template-columns:1fr}.fin-grid{grid-template-columns:1fr}
   .doc-btns{flex-wrap:wrap}.doc-body{padding:16px}
   .cal-top{flex-direction:column}.c-cell{min-height:46px;padding:4px}
   .c-ev{display:none}.ev-dl{display:flex}
   .at-date{display:none}.f-in,.f-ta,.wp-area{font-size:16px}
+  .at-edit-btn{opacity:1}
   .btn-p{width:100%;justify-content:center}
 }
 @media(min-width:769px) and (max-width:1080px){
@@ -428,7 +445,24 @@ body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;disp
   .dash-2{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.fin-grid{grid-template-columns:1fr}
 }
 ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--sur3);border-radius:2px}
-</style>
+
+/* FOOTER */
+.app-footer{background:var(--bg1);border-top:1px solid var(--b1);padding:20px 24px;margin-top:auto;display:none}
+.app-footer.show{display:block}
+.footer-inner{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.footer-guarantee{display:flex;align-items:flex-start;gap:12px;background:var(--gr-bg);border:1px solid var(--gr-bd);border-radius:var(--rl);padding:14px 16px}
+.footer-shield{font-size:22px;flex-shrink:0;line-height:1.3}
+.footer-guarantee-title{font-size:13px;font-weight:700;color:var(--gr);margin-bottom:3px}
+.footer-guarantee-sub{font-size:12px;color:var(--ink2);line-height:1.5}
+.footer-links{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--ink)}
+.footer-brand{font-weight:700;color:var(--ink2)}
+.footer-link{color:var(--acl);text-decoration:none;font-weight:500}
+[data-theme="light"] .footer-link{color:var(--ac)}
+.footer-link:hover{text-decoration:underline}
+.footer-email{font-weight:600;color:var(--ink);user-select:all}
+.footer-links{color:var(--ink)}
+.footer-sep{color:var(--ink3)}
+@media(max-width:768px){.app-footer{padding:16px;margin-bottom:64px}.footer-inner{gap:10px}}</style>
 </head>
 <body>
 <header class="topbar">
@@ -546,6 +580,61 @@ body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;disp
             </ul>
             <button class="pc-btn" id="seriousPlanBtn" onclick="openCheckout()">🔒 Unlock with Stripe</button>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETUP -->
+    <div class="screen" id="s-setup">
+      <div class="setup-wrap">
+        <div class="kicker"><div class="kicker-d"></div>Create your plan</div>
+        <div class="dash-top">
+          <div>
+            <div class="dash-goal">What are you building?</div>
+            <div class="dash-sub">Add a goal, describe the work, choose your timeline, and Taskbit will make the daily plan.</div>
+          </div>
+          <div class="mode-pill"><div class="mode-pill-d"></div><span id="setupMode">Chill mode</span></div>
+        </div>
+        <div class="setup-panel">
+          <div class="setup-card">
+            <div class="setup-card-h">
+              <div class="setup-card-t">New project</div>
+              <div class="setup-card-s">Bullet points become daily tasks. A plain description works too.</div>
+            </div>
+            <div class="setup-card-b">
+              <div class="two-col">
+                <div class="field"><label class="f-lbl">Goal title</label><input class="f-in" id="sGoal" type="text" placeholder="e.g. Internship report" maxlength="60" autocomplete="off"></div>
+                <div class="field"><label class="f-lbl">Start date</label><input class="f-in" id="sDate" type="date"></div>
+              </div>
+              <div class="field">
+                <label class="f-lbl">Description</label>
+                <textarea class="f-ta" id="sDesc" placeholder="e.g.&#10;- introduction&#10;- company overview&#10;- tasks performed&#10;- reflection&#10;~3000 words"></textarea>
+                <div class="f-hint">Include sections, requirements, or a word target if you have one.</div>
+              </div>
+              <div class="field">
+                <label class="f-lbl">Days</label>
+                <div class="chips">
+                  <button class="chip setup-chip" onclick="sPick(3,this)">3 days</button>
+                  <button class="chip setup-chip" onclick="sPick(5,this)">5 days</button>
+                  <button class="chip setup-chip" onclick="sPick(7,this)">1 week</button>
+                  <button class="chip setup-chip" onclick="sPick(14,this)">2 weeks</button>
+                  <button class="chip setup-chip" onclick="sPick(21,this)">3 weeks</button>
+                  <button class="chip setup-chip" onclick="sPick(30,this)">1 month</button>
+                </div>
+                <input class="f-in" id="sDays" type="number" placeholder="Or type a custom number" min="1" max="365" style="max-width:220px" oninput="sClearChips()">
+              </div>
+              <button class="btn-p" onclick="createProjectFromSetup()">Create plan <svg viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7.5h9M8 3.5l4 4-4 4"/></svg></button>
+            </div>
+          </div>
+          <aside class="setup-side">
+            <div class="setup-card-t">How it works</div>
+            <div class="setup-card-s">Your dashboard, task list, document, calendar, and progress tracker appear after the plan is created.</div>
+            <div class="setup-steps">
+              <div class="setup-step"><div class="setup-num">1</div><div>Describe the outcome and the pieces that need to be done.</div></div>
+              <div class="setup-step"><div class="setup-num">2</div><div>Taskbit turns that into one focused task per day.</div></div>
+              <div class="setup-step"><div class="setup-num">3</div><div>Write daily work inside the app and track progress on the calendar.</div></div>
+            </div>
+          </aside>
         </div>
       </div>
     </div>
@@ -743,12 +832,12 @@ body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;disp
       <div class="field">
         <label class="f-lbl">Duration</label>
         <div class="chips" id="mChips">
-          <div class="chip" onclick="mPick(3,this)">3 days</div>
-          <div class="chip" onclick="mPick(5,this)">5 days</div>
-          <div class="chip" onclick="mPick(7,this)">1 week</div>
-          <div class="chip" onclick="mPick(14,this)">2 weeks</div>
-          <div class="chip" onclick="mPick(21,this)">3 weeks</div>
-          <div class="chip" onclick="mPick(30,this)">1 month</div>
+          <button class="chip" onclick="mPick(3,this)">3 days</button>
+          <button class="chip" onclick="mPick(5,this)">5 days</button>
+          <button class="chip" onclick="mPick(7,this)">1 week</button>
+          <button class="chip" onclick="mPick(14,this)">2 weeks</button>
+          <button class="chip" onclick="mPick(21,this)">3 weeks</button>
+          <button class="chip" onclick="mPick(30,this)">1 month</button>
         </div>
         <input class="f-in" id="mDays" type="number" placeholder="Or type a custom number" min="1" max="365" style="max-width:220px" oninput="mClearChips()">
       </div>
@@ -773,6 +862,24 @@ body{font-family:var(--f);background:var(--bg);color:var(--ink);height:100%;disp
 
 <div class="toast" id="toast"></div>
 
+<!-- FOOTER -->
+<footer class="app-footer" id="appFooter">
+  <div class="footer-inner">
+    <div class="footer-guarantee">
+      <span class="footer-shield">🛡️</span>
+      <div>
+        <div class="footer-guarantee-title">30-day money-back guarantee</div>
+        <div class="footer-guarantee-sub">If Taskbit doesn't work as expected, email us within 30 days for a full refund — no questions asked.</div>
+      </div>
+    </div>
+    <div class="footer-links">
+      <span class="footer-brand">Taskbit</span>
+      <span class="footer-sep">·</span>
+      <span>To request a refund, email us at <span class="footer-email">taskbit.support@gmail.com</span></span>
+    </div>
+  </div>
+</footer>
+
 <script>
 /* ══ UTILS ══ */
 const $=id=>document.getElementById(id);
@@ -780,13 +887,34 @@ const MONTHS=['January','February','March','April','May','June','July','August',
 const MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const COLORS=['#6C63FF','#F59E0B','#10B981','#F43F5E','#3B82F6','#8B5CF6'];
 const TODAY=new Date(); const TDS=ds(TODAY);
-const STRIPE_URL='https://buy.stripe.com/test_00w5kx1gP8Xva6K9w39Ve00';
+const STRIPE_URL='https://buy.stripe.com/cNi5kw8hY2KB6tX3yX7wA00';
 
 function ds(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function addD(s,n){const d=new Date(s+'T12:00:00');d.setDate(d.getDate()+n);return ds(d);}
 function fmtD(s){if(!s)return'';const d=new Date(s+'T12:00:00');return MS[d.getMonth()]+' '+d.getDate();}
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function dlFile(n,t){const a=document.createElement('a');a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(t);a.download=n;a.click();}
+function dlFile(n,t){
+  const a=document.createElement('a');
+  a.href='data:text/plain;charset=utf-8,'+encodeURIComponent(t);
+  a.download=n;
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+function copyText(text,okMsg='Copied!'){
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>toast(okMsg,'ok')).catch(()=>fallbackCopy(text,okMsg));
+  }else fallbackCopy(text,okMsg);
+}
+function fallbackCopy(text,okMsg){
+  const ta=document.createElement('textarea');
+  ta.value=text;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.left='-9999px';
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');toast(okMsg,'ok');}
+  catch(e){toast('Copy failed — select the text and copy manually','warn');}
+  ta.remove();
+}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
 
 let _tt;
@@ -797,19 +925,26 @@ function initTheme(){const s=localStorage.getItem('tb_theme')||(window.matchMedi
 function toggleTheme(){const n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);localStorage.setItem('tb_theme',n);}
 
 /* ══ PLAN / MONETIZATION ══ */
-function getPlan(){return localStorage.getItem('tb_plan')||'chill';}
-function setPlan(p){localStorage.setItem('tb_plan',p);updatePlanUI();}
+function getPlan(){return localStorage.getItem('taskbit_pro')==='true'?'serious':(localStorage.getItem('tb_plan')||'chill');}
+function setPlan(p){localStorage.setItem('tb_plan',p);if(p==='serious')localStorage.setItem('taskbit_pro','true');else localStorage.removeItem('taskbit_pro');updatePlanUI();}
 function isSerious(){return getPlan()==='serious';}
 
-function openCheckout(){window.open(STRIPE_URL,'_blank');toast('Complete payment in the new tab, then come back ✓');}
+function openCheckout(){
+  const win=window.open(STRIPE_URL,'_blank');
+  if(!win){toast('Popup blocked — allow popups to open Stripe','warn');return;}
+  toast('Complete payment in the new tab, then come back ✓');
+}
 
-function startChill(){setPlan('chill');showApp();nav('today');}
-function switchToChill(){setPlan('chill');nav('today');toast('Switched to Chill mode.');}
+function startChill(){setPlan('chill');showApp();activeProjs().length?nav('today'):showSetup();}
+function switchToChill(){setPlan('chill');activeProjs().length?nav('today'):showSetup();toast('Switched to Chill mode.');}
 
 function checkStripeReturn(){
   const p=new URLSearchParams(window.location.search);
-  if(p.get('plan')==='serious'){
-    setPlan('serious');toast('🎉 Welcome to Serious mode!','ok');
+  const isPaid=p.get('paid')==='true'||p.get('plan')==='serious';
+  if(isPaid){
+    localStorage.setItem('taskbit_pro','true');
+    setPlan('serious');
+    toast('🎉 Welcome to Serious mode! You\'re all set.','ok');
     window.history.replaceState({},'',window.location.pathname);
   }
 }
@@ -824,8 +959,12 @@ function updatePlanUI(){
   // Update upgrade screen buttons
   const cp=$('chillPlanBtn');const sp=$('seriousPlanBtn');
   if(cp)cp.textContent=serious?'Switch to Chill':'Current plan';
-  if(sp)sp.textContent=serious?'✓ Active plan':'🔒 Unlock with Stripe';
-  if(sp&&serious){sp.onclick=null;sp.style.opacity='.6';sp.style.cursor='default';}
+  if(sp){
+    sp.textContent=serious?'✓ Active plan':'🔒 Unlock with Stripe';
+    sp.onclick=serious?null:openCheckout;
+    sp.style.opacity=serious?'.6':'';
+    sp.style.cursor=serious?'default':'';
+  }
   // Export button lock for Chill
   const expBtn=$('exportPdfBtn');
   if(expBtn){expBtn.classList.toggle('locked',!serious);expBtn.title=serious?'':'Serious plan required';}
@@ -850,7 +989,7 @@ function showUpgradeBanner(msg){
 const VER=3;
 let PROJS=[], CUR_PROJ=null;
 let selCalDate=null, calY=TODAY.getFullYear(), calM=TODAY.getMonth();
-let mSelDays=null, mSelCol=0;
+let mSelDays=null, mSelCol=0, sSelDays=null;
 let _wpDailyTarget=null, _wpTimer=null;
 
 function save(){localStorage.setItem('tb_projs',JSON.stringify({v:VER,projs:PROJS,cur:CUR_PROJ}));}
@@ -894,28 +1033,34 @@ function parseDescTopics(desc){
   return lines.length>=3?lines:[];
 }
 
+function makeTopicTask(topic,type){
+  const clean=topic.replace(/\s+/g,' ').trim();
+  if(type==='writing')return 'Draft and develop: '+clean;
+  if(type==='coding')return 'Build or implement: '+clean;
+  if(type==='learning')return 'Study and practise: '+clean;
+  return 'Work on: '+clean;
+}
 function genTasks(goal,desc,total){
   const type=detectType(goal,desc);const bp=BP[type]||BP.generic;
   const topics=parseDescTopics(desc); // structured items from desc
   const wt=extractWordTarget(desc);const dailyWords=wt?Math.ceil(wt/total):null;
   const pool=[];const tw=bp.reduce((s,p)=>s+p.w,0);
 
-  // If Serious mode AND description has structure, use desc items as core tasks
-  if(isSerious()&&topics.length>=3){
-    // Distribute topics across middle 70% of days
-    const setupDays=Math.max(1,Math.round(total*.1));
-    const deliverDays=Math.max(1,Math.round(total*.05));
-    const coreDays=total-setupDays-deliverDays;
-    // Setup phase
-    bp[0].t.slice(0,setupDays).forEach((t,i)=>{if(i<setupDays)pool.push({ph:bp[0].ph,text:t});});
-    while(pool.length<setupDays)pool.push({ph:bp[0].ph,text:bp[0].t[0]});
-    // Core: map topics across coreDays
-    for(let i=0;i<coreDays;i++){
-      const idx=Math.round((i/(coreDays-1||1))*(topics.length-1));
-      pool.push({ph:'Build',text:'Work on: '+topics[Math.min(idx,topics.length-1)]});
+  // Bullet points become the backbone of the plan in both Chill and Serious.
+  if(topics.length>=2){
+    if(total===1){
+      pool.push({ph:'Deliver',text:'Complete the core task: '+topics[0]});
+    }else{
+      const setupDays=total>=5?1:0;
+      const deliverDays=1;
+      const coreDays=Math.max(1,total-setupDays-deliverDays);
+      if(setupDays)pool.push({ph:bp[0].ph,text:bp[0].t[0]});
+      for(let i=0;i<coreDays;i++){
+        const idx=Math.floor((i/coreDays)*topics.length);
+        pool.push({ph:'Build',text:makeTopicTask(topics[Math.min(idx,topics.length-1)],type)});
+      }
+      pool.push({ph:'Deliver',text:'Final review — make it the best it can be, then deliver'});
     }
-    // Deliver
-    for(let i=0;i<deliverDays;i++)pool.push({ph:'Deliver',text:'Final review — make it the best it can be, then deliver'});
   } else {
     bp.forEach(phase=>{const days=Math.max(1,Math.round((phase.w/tw)*total));for(let i=0;i<days;i++)pool.push({ph:phase.ph,text:phase.t[Math.min(i,phase.t.length-1)]});});
   }
@@ -923,15 +1068,9 @@ function genTasks(goal,desc,total){
   while(pool.length>total)pool.pop();
   while(pool.length<total){const m=bp[Math.floor(bp.length/2)];pool.push({ph:m.ph,text:m.t[pool.length%m.t.length]});}
 
-  // Personalise with topic hints for Chill fallback
-  if(!isSerious()&&topics.length>0){
-    const cs=Math.floor(pool.length*.12),ce=Math.floor(pool.length*.82);
-    topics.forEach((topic,i)=>{const idx=cs+Math.round((i/Math.max(topics.length-1,1))*(ce-cs));if(pool[idx]&&!pool[idx].p){pool[idx].text+=` — focus: ${topic.toLowerCase()}`;pool[idx].p=true;}});
-  }
-
   const mid=Math.ceil(total/2)-1;
-  pool[mid]={ph:'Review',text:'Halfway check — review everything built so far and fill any gaps'};
-  pool[total-1]={ph:'Deliver',text:'Final review — make it the best it can be, then deliver'};
+  if(total>2)pool[mid]={ph:'Review',text:'Halfway check — review everything built so far and fill any gaps'};
+  if(total>1)pool[total-1]={ph:'Deliver',text:'Final review — make it the best it can be, then deliver'};
   return pool.map((p,i)=>({day:i+1,text:p.text,phase:p.ph,done:false,skipped:false,dailyWords}));
 }
 
@@ -961,29 +1100,49 @@ function openModal(){
 }
 function closeModal(){$('modalOv').classList.remove('open');}
 $('modalOv').addEventListener('click',e=>{if(e.target===$('modalOv'))closeModal();});
-function mPick(n,el){mSelDays=n;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');$('mDays').value='';}
-function mClearChips(){mSelDays=null;document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));}
+function mPick(n,el){mSelDays=n;document.querySelectorAll('#mChips .chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');$('mDays').value='';}
+function mClearChips(){mSelDays=null;document.querySelectorAll('#mChips .chip').forEach(c=>c.classList.remove('on'));}
 function pickCol(i,el){mSelCol=i;document.querySelectorAll('.c-opt').forEach(c=>c.classList.remove('on'));el.classList.add('on');}
+function sPick(n,el){sSelDays=n;document.querySelectorAll('.setup-chip').forEach(c=>c.classList.remove('on'));el.classList.add('on');$('sDays').value='';}
+function sClearChips(){sSelDays=null;document.querySelectorAll('.setup-chip').forEach(c=>c.classList.remove('on'));}
+
+function addProjectFromValues({goal,desc,days,startDate,color=0,fromModal=false}){
+  if(!goal){toast('Please enter a goal title','warn');return false;}
+  if(desc.length<10){toast('Add a short description so I can build the plan','warn');return false;}
+  if(!days||days<1){toast('Choose how many days you have','warn');return false;}
+  if(days>365){toast('Keep plans under 365 days','warn');return false;}
+  if(!isSerious()&&activeProjs().length>=1){
+    if(fromModal)closeModal();
+    showUpgradeBanner('Working on more than one goal? Upgrade to Serious.');
+    return false;
+  }
+  const proj={id:uid(),goal,desc,total:days,mode:getPlan(),startDate:startDate||TDS,tasks:genTasks(goal,desc,days),streak:0,ci:color};
+  PROJS.push(proj);CUR_PROJ=proj.id;save();showApp();renderSbProjs();nav('today');
+  toast('Plan created!','ok');
+  return true;
+}
 
 function createProject(){
   const goal=$('mGoal').value.trim();const desc=$('mDesc').value.trim();
   const sd=$('mDate').value;const dr=parseInt($('mDays').value);const days=(!isNaN(dr)&&dr>0)?dr:mSelDays;
-  if(!goal){toast('Please enter a project title','warn');return;}
-  if(desc.length<10){toast('Describe what needs to be done (a few words at least)','warn');return;}
-  if(!days||days<1){toast('Choose how many days you have','warn');return;}
-  // CHILL limit: only 1 active project
-  if(!isSerious()&&activeProjs().length>=1){
-    closeModal();
-    showUpgradeBanner('Working on more than one goal? Upgrade to Serious.');
-    return;
+  if(addProjectFromValues({goal,desc,days,startDate:sd,color:mSelCol,fromModal:true}))closeModal();
+}
+function createProjectFromSetup(){
+  const goal=$('sGoal').value.trim();const desc=$('sDesc').value.trim();
+  const sd=$('sDate').value;const dr=parseInt($('sDays').value);const days=(!isNaN(dr)&&dr>0)?dr:sSelDays;
+  if(addProjectFromValues({goal,desc,days,startDate:sd,color:0})){
+    $('sGoal').value='';$('sDesc').value='';$('sDays').value='';sSelDays=null;
+    document.querySelectorAll('.setup-chip').forEach(c=>c.classList.remove('on'));
   }
-  const proj={id:uid(),goal,desc,total:days,mode:getPlan(),startDate:sd||TDS,tasks:genTasks(goal,desc,days),streak:0,ci:mSelCol};
-  PROJS.push(proj);CUR_PROJ=proj.id;save();closeModal();showApp();renderSbProjs();nav('today');
-  toast('Project created! 🎉','ok');
 }
 
 /* ══ APP ══ */
-function showApp(){$('topTabs').classList.add('show');$('mobNav').style.display='block';}
+function showApp(){$('topTabs').classList.add('show');$('mobNav').style.display=window.matchMedia('(max-width:768px)').matches?'block':'';const f=$('appFooter');if(f)f.classList.add('show');}
+function showSetup(){
+  showApp();updatePlanUI();setNav('today');$('setupMode').textContent=(isSerious()?'Serious':'Chill')+' mode';
+  if($('sDate'))$('sDate').valueAsDate=TODAY;
+  showScreen('s-setup');setTimeout(()=>$('sGoal').focus(),80);
+}
 
 function applyColor(ci){
   const cols=[{pac:'#6C63FF',bg:'rgba(108,99,255,.10)',bd:'rgba(108,99,255,.25)'},{pac:'#F59E0B',bg:'rgba(245,158,11,.10)',bd:'rgba(245,158,11,.25)'},{pac:'#10B981',bg:'rgba(16,185,129,.10)',bd:'rgba(16,185,129,.25)'},{pac:'#F43F5E',bg:'rgba(244,63,94,.10)',bd:'rgba(244,63,94,.25)'},{pac:'#3B82F6',bg:'rgba(59,130,246,.10)',bd:'rgba(59,130,246,.25)'},{pac:'#8B5CF6',bg:'rgba(139,92,246,.10)',bd:'rgba(139,92,246,.25)'}];
@@ -1045,7 +1204,7 @@ function setSwitcher(id,cb){
 
 /* ══ RENDER TODAY ══ */
 function renderToday(){
-  const p=getProj();if(!p){showScreen('s-welcome');return;}
+  const p=getProj();if(!p){showSetup();return;}
   applyColor(p.ci||0);setSwitcher('todaySwitcher',renderToday);renderSbProjs();
   const cur=curDay(p);const t=p.tasks[cur-1];
   const done=p.tasks.filter(x=>x.done).length;const pct=Math.round((done/p.total)*100);
@@ -1083,12 +1242,14 @@ function renderLists(p,cur){
 function markDone(){
   const btn=$('btnDone');if(btn.classList.contains('done'))return;
   const p=getProj();if(!p)return;const cur=curDay(p);
+  if(!p.tasks[cur-1]||p.tasks[cur-1].done||p.tasks[cur-1].skipped)return;
   p.tasks[cur-1].done=true;p.streak++;save();
   btn.classList.add('done');btn.textContent='✓ Completed';
   setTimeout(()=>{if(p.tasks.every(t=>t.done||t.skipped))showFinish(p);else{renderToday();toast('Nice work! 🔥','ok');}},700);
 }
 function skipDay(){
   const p=getProj();if(!p)return;const cur=curDay(p);
+  if(!p.tasks[cur-1]||p.tasks[cur-1].done||p.tasks[cur-1].skipped){toast('This day is already handled.');return;}
   if(p.mode==='serious'||getPlan()==='serious'){
     const wk=ds(new Date(TODAY.getFullYear(),TODAY.getMonth(),TODAY.getDate()-((TODAY.getDay()+6)%7)));
     if(!p.skipsThisWeek)p.skipsThisWeek={};
@@ -1184,7 +1345,7 @@ function renderDoc(){
     body.appendChild(div);
   });
 }
-function copyDoc(){const p=getProj();if(!p)return;const e=getEntries(p.id);if(!e.length){toast('Nothing written yet','warn');return;}navigator.clipboard.writeText(e.map(en=>`--- Day ${en.dayNum}: ${en.taskText} ---\n${en.text}`).join('\n\n')).then(()=>toast('Copied!','ok'));}
+function copyDoc(){const p=getProj();if(!p)return;const e=getEntries(p.id);if(!e.length){toast('Nothing written yet','warn');return;}copyText(e.map(en=>`--- Day ${en.dayNum}: ${en.taskText} ---\n${en.text}`).join('\n\n'));}
 function dlDocTxt(){const p=getProj();if(!p)return;const e=getEntries(p.id);if(!e.length){toast('Nothing written yet','warn');return;}dlFile(p.goal.toLowerCase().replace(/\s+/g,'-')+'.txt',[p.goal.toUpperCase(),'='.repeat(p.goal.length),'',...e.map(en=>`--- Day ${en.dayNum}: ${en.taskText} ---\n\n${en.text}`)].join('\n\n'));}
 
 function exportPdf(){
@@ -1194,7 +1355,9 @@ function exportPdf(){
   const tw=entries.reduce((s,e)=>s+(e.text.trim()===''?0:e.text.trim().split(/\s+/).length),0);
   const col=COLORS[p.ci||0];const dateStr=new Date().toLocaleDateString('en-GB',{year:'numeric',month:'long',day:'numeric'});
   const html=`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(p.goal)}</title><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Helvetica Neue',Arial,sans-serif;font-size:11pt;color:#111;background:#fff}.cover{padding:60px 64px 36px;border-bottom:2px solid #111;margin-bottom:36px}.cl{font-size:9pt;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#888;margin-bottom:14px}.ct{font-size:28pt;font-weight:700;line-height:1.1;color:#111;margin-bottom:18px}.cm{font-size:9pt;color:#666;margin-right:20px}.cm strong{color:#111}.body{padding:0 64px 64px}.entry{margin-bottom:32px;padding-bottom:32px;border-bottom:1px solid #e5e5e5}.entry:last-child{border-bottom:none}.em{display:flex;align-items:center;gap:9px;margin-bottom:8px}.ed{font-size:8.5pt;font-weight:700;text-transform:uppercase;color:${col};background:${col}22;border-radius:4px;padding:2px 8px}.ep{font-size:8.5pt;color:#888;background:#f5f5f5;border-radius:4px;padding:2px 8px}.et{font-size:9pt;color:#888;margin-bottom:9px;font-style:italic;border-left:2px solid #e5e5e5;padding-left:9px}.ec{font-size:11pt;line-height:1.8;color:#1a1a1a;white-space:pre-wrap}.footer{text-align:center;padding:18px;font-size:8pt;color:#bbb;border-top:1px solid #eee;margin-top:36px}@media print{.entry{page-break-inside:avoid}}</style></head><body><div class="cover"><div class="cl">Taskbit — Live Document</div><div class="ct">${esc(p.goal)}</div><div style="display:flex;flex-wrap:wrap"><span class="cm"><strong>${entries.length}</strong> entries</span><span class="cm"><strong>${tw.toLocaleString()}</strong> words</span><span class="cm">Exported <strong>${dateStr}</strong></span></div></div><div class="body">${entries.map(e=>`<div class="entry"><div class="em"><span class="ed">Day ${e.dayNum}</span>${e.phase?`<span class="ep">${e.phase}</span>`:''}</div><div class="et">${esc(e.taskText)}</div><div class="ec">${esc(e.text)}</div></div>`).join('')}</div><div class="footer">Generated by Taskbit — one task at a time.</div></body></html>`;
-  const win=window.open('','_blank','width=900,height=700');win.document.write(html);win.document.close();win.focus();setTimeout(()=>win.print(),800);
+  const win=window.open('','_blank','width=900,height=700');
+  if(!win){toast('Popup blocked — allow popups to export PDF','warn');return;}
+  win.document.write(html);win.document.close();win.focus();setTimeout(()=>win.print(),800);
 }
 function dlFinCheck(){if(!requireSerious('Downloading your work requires Serious mode.'))return;const p=getProj();dlFile((p?.goal||'project').toLowerCase().replace(/\s+/g,'-')+'.txt',$('outTa').value);}
 
@@ -1206,7 +1369,7 @@ function showFinish(p){
   $('outTa').value=[`Goal: ${p.goal}`,`Completed: ${done}/${p.total}`,`Plan: ${getPlan()}`,'',...entries.map(e=>`Day ${e.dayNum}: ${e.taskText}\n${e.text}`),'','Built one task at a time.'].join('\n\n');
   showScreen('s-finish');setNav('today');
 }
-function copyFin(){navigator.clipboard.writeText($('outTa').value).then(()=>toast('Copied!','ok'));}
+function copyFin(){copyText($('outTa').value);}
 
 /* ══ CALENDAR ══ */
 function buildByDate(){
@@ -1271,13 +1434,17 @@ function calMark(pid,idx){const p=PROJS.find(pr=>pr.id===pid);if(!p)return;p.tas
 function calMove(dir){calM+=dir;if(calM<0){calM=11;calY--;}if(calM>11){calM=0;calY++;}renderCal();}
 
 /* ══ NAV ══ */
-function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');}
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));
+  $(id).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 function setNav(v){['today','tasks','document','calendar','upgrade'].forEach(n=>{[$('sb-'+n),$('tp-'+n),$('mob-'+n)].forEach(el=>{if(el)el.classList.toggle('on',n===v);});});}
 function nav(v){
   setNav(v);
   const active=activeProjs();
   if(v==='upgrade'){showScreen('s-upgrade');return;}
-  if(!active.length){showScreen('s-welcome');if(v!=='today')toast('Add a project first','warn');return;}
+  if(!active.length){showSetup();if(v!=='today')toast('Create a plan first','warn');return;}
   if(!CUR_PROJ||!active.find(p=>p.id===CUR_PROJ)){CUR_PROJ=active[0].id;save();}
   if(v==='today'){renderToday();showScreen('s-today');}
   else if(v==='tasks'){renderTasks();showScreen('s-tasks');}
@@ -1288,7 +1455,10 @@ function nav(v){
 /* ══ BOOT ══ */
 initTheme();checkStripeReturn();
 $('mDate').valueAsDate=TODAY;
+$('sDate').valueAsDate=TODAY;
 updatePlanUI();
+// Always show footer
+const _footer=$('appFooter');if(_footer)_footer.classList.add('show');
 if(load()){
   const active=activeProjs();
   if(active.length){
